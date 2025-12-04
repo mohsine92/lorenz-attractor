@@ -1,6 +1,7 @@
 # Lorenz Attractor
 
 A Python implementation for numerical simulation and 3D visualization of the Lorenz attractor, a classic chaotic dynamical system.
+<img width="1040" height="893" alt="Capture d’écran 2025-12-04 à 21 50 16" src="https://github.com/user-attachments/assets/b5970fd6-5f31-4009-98cf-ea4c7a024da5" />
 
 ## Inspiration
 
