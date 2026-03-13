@@ -1,10 +1,3 @@
-"""
-Lorenz Attractor - Simulation et Visualisation
-==============================================
-Ce script simule et visualise l'attracteur de Lorenz, un système dynamique chaotique.
-"""
-
-# -------  Importing Libraries ------- #
 import numpy as np  
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -12,7 +5,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy.integrate import odeint
 from typing import List, Tuple, Optional
 
-# -------  Configuration Parameters ------- #
+# Configuration Parameters
 # Paramètres du système de Lorenz (valeurs classiques)
 SIGMA = 10.0
 BETA = 8.0 / 3.0
@@ -24,32 +17,20 @@ TIME_END = 40.0
 NUM_POINTS = 1001
 
 # Paramètres d'animation
-ANIMATION_INTERVAL = 25  # ms entre chaque frame
-TRAIL_LENGTH = 100  # Nombre de points à afficher dans la traînée
+ANIMATION_INTERVAL = 25 # ms entre chaque frame
+TRAIL_LENGTH = 100 # Nombre de points à afficher dans la traînée
 
 # Conditions initiales (peut être modifié)
 INITIAL_POSITIONS = [
-    [0.0, 1.0, 1.0],      # Première trajectoire
-    [20.0, 6.1, 21.0]     # Deuxième trajectoire
+    [0.0, 1.0, 1.0], # Première trajectoire
+    [20.0, 6.1, 21.0] # Deuxième trajectoire
 ]
 
 # Couleurs des trajectoires
-COLORS = ['#FF4444', '#4444FF']  # Rouge et Bleu
+COLORS = ['#FF4444', '#4444FF'] # Rouge et Bleu
 
-# -------  System Definition ------- #
-
+# System Definition
 def lorenz_system(vector: List[float], t: float, sigma: float, beta: float, rho: float) -> List[float]:
-    """
-    Définit le système d'équations différentielles de Lorenz.
-    
-    Paramètres:
-        vector: [x, y, z] - Position actuelle dans l'espace 3D
-        t: Temps (non utilisé mais requis par odeint)
-        sigma, beta, rho: Paramètres du système de Lorenz
-        
-    Retourne:
-        [dx/dt, dy/dt, dz/dt] - Vitesses de changement
-    """
     x, y, z = vector
     
     dx_dt = sigma * (y - x)
@@ -59,24 +40,12 @@ def lorenz_system(vector: List[float], t: float, sigma: float, beta: float, rho:
     return [dx_dt, dy_dt, dz_dt]
 
 
-# -------  Numerical Solving ------- #
-
+# Numerical Solving
 def solve_lorenz_system(initial_position: List[float], 
                        time_points: np.ndarray,
                        sigma: float = SIGMA,
                        beta: float = BETA,
                        rho: float = RHO) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """
-    Résout le système de Lorenz pour une condition initiale donnée.
-    
-    Paramètres:
-        initial_position: [x0, y0, z0] - Position initiale
-        time_points: Tableau des instants de temps
-        sigma, beta, rho: Paramètres du système
-        
-    Retourne:
-        (x_solution, y_solution, z_solution) - Trajectoires calculées
-    """
     positions = odeint(lorenz_system, initial_position, time_points, args=(sigma, beta, rho))
     x_sol = positions[:, 0]
     y_sol = positions[:, 1]
@@ -85,15 +54,8 @@ def solve_lorenz_system(initial_position: List[float],
     return x_sol, y_sol, z_sol
 
 
-# -------  Visualization Setup ------- #
-
+# Visualization Setup
 def setup_plot() -> Tuple[plt.Figure, plt.Axes]:
-    """
-    Configure le graphique 3D avec les labels et le style appropriés.
-    
-    Retourne:
-        (figure, axes) - Objets matplotlib pour le graphique
-    """
     fig = plt.figure(figsize=(12, 9))
     ax = fig.add_subplot(111, projection='3d')
     
@@ -109,8 +71,7 @@ def setup_plot() -> Tuple[plt.Figure, plt.Axes]:
     return fig, ax
 
 
-# -------  Animation Function ------- #
-
+# Animation Function
 def create_animation(fig: plt.Figure, 
                     ax: plt.Axes,
                     solutions: List[Tuple[np.ndarray, np.ndarray, np.ndarray]],
@@ -120,23 +81,7 @@ def create_animation(fig: plt.Figure,
                     trail_length: int = TRAIL_LENGTH,
                     interval: int = ANIMATION_INTERVAL,
                     save_path: Optional[str] = None) -> FuncAnimation:
-    """
-    Crée une animation des trajectoires de Lorenz.
-    
-    Paramètres:
-        fig: Figure matplotlib
-        ax: Axes 3D matplotlib
-        solutions: Liste de tuples (x, y, z) pour chaque trajectoire
-        initial_positions: Positions initiales pour la légende
-        colors: Couleurs pour chaque trajectoire
-        time_points: Points de temps
-        trail_length: Longueur de la traînée visible
-        interval: Intervalle entre frames (ms)
-        save_path: Chemin pour sauvegarder l'animation (optionnel)
-        
-    Retourne:
-        Animation matplotlib
-    """
+
     # Initialisation des lignes vides
     lines = []
     for i, (x_sol, y_sol, z_sol) in enumerate(solutions):
@@ -196,10 +141,9 @@ def create_animation(fig: plt.Figure,
     return animation
 
 
-# -------  Main Execution ------- #
-
+# Main Execution
 def main():
-    """Fonction principale qui orchestre la simulation et la visualisation."""
+    "Fonction principale qui orchestre la simulation et la visualisation."
     print("=" * 60)
     print("Simulation de l'Attracteur de Lorenz")
     print("=" * 60)
@@ -229,7 +173,7 @@ def main():
         fig, ax, solutions, INITIAL_POSITIONS, COLORS, time_points,
         trail_length=TRAIL_LENGTH,
         interval=ANIMATION_INTERVAL,
-        save_path=None  # Mettre 'lorenz_animation.gif' pour sauvegarder
+        save_path=lorenz_animation.gif
     )
     
     # Affichage
